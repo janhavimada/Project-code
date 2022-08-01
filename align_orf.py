@@ -12,17 +12,24 @@ with open (tsvin,"r") as tsv:
     for line in tsv:
         splits=line.split("\t")
         family=splits[0]
-        species=splits[1]
+        species=splits[1].replace(" ","-")
         segment=splits[2]
         strand=splits[3]
         frame=int(splits[4])
         type=splits[5]
-        alnstop=int(splits[6])
-        count=int(splits[7])
-        ref_seq=splits[8]
-        Nseq=splits[9]
-        AAseq=splits[10]
-        AAlen=int(splits[11].replace("\n",""))
+        utr=splits[6]
+        alnstop=int(splits[7])
+        count=int(splits[8])
+        total=int(splits[9])
+        proportion=splits[10]
+        ref_seq=splits[11]
+        cds_start=splits[12]
+        cds_stop= splits[13]
+        seq_length=int(splits[14])
+        stop_pos=int(splits[15])
+        Nseq=splits[16]
+        AAseq=splits[17]
+        AAlen=int(splits[18].replace("\n",""))
         seq_dict={ref_seq:""}
         with open(f"../results/{family}/orfs/ORF_{species}_{segment}.tsv") as orffile:
             in_file=f"../results/prot/{species}_{segment}_{frame}.fasta"
@@ -33,9 +40,9 @@ with open (tsvin,"r") as tsv:
                     counter+=1
                     continue
                 splits=line.split("\t")
-                seq_id=splits[5]
-                if int(splits[3])==alnstop and int(splits[0])==frame and splits[1]==strand:
-                    AAseq=Seq(splits[7][:-3]).translate()
+                seq_id=splits[6]
+                if int(splits[4])==alnstop and int(splits[0])==frame and splits[1]==strand:
+                    AAseq=Seq(splits[8][:-3]).translate()
                     record= SeqRecord(AAseq,id=seq_id)
                     seq_dict[seq_id]= record
             seq_records= list(seq_dict.values())

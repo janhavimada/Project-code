@@ -13,7 +13,7 @@ echo "Created ref db"
 #Create list of family:
 tail -n +2 ${metadata} | awk -F',' '{print $4}' | sort -u > ../data/familynames.txt
 #Creates file for final output with headers
-echo  $'Family\tSpecies\tSegment\tStrand\tFrame\tType\tUTR\tCount\tTotal\tProportion\tRefSeq\tCDS Start\tCDS Stop\tSeq Length\tStop Pos\tN seq\tAA seq\tAA len' > ../results/ORFs_mastertable.tsv
+echo  $'Family\tSpecies\tSegment\tStrand\tFrame\tType\tUTR\tAlnStop\tCount\tTotal\tProportion\tRefSeq\tCDS Start\tCDS Stop\tSeq Length\tStop Pos\tN seq\tAA seq\tAA len' > ../results/ORFs_mastertable.tsv
 for family in $(echo $(cat ../data/familynames.txt))
 do
   echo "Processing ${family} ..."
