@@ -21,10 +21,8 @@ The `telescope.sh` is the executable. The other scripts do not have to be run se
 ```
 ./telescope.sh $1 $2 $3
 ```
-Here $1, $2 and $3 are placeholders for the input given as mentioned in above section. Using the exampke data the code would look like:
-```
-./telescope.sh ../data/polyploviricotina_seq.csv ../data/polyplo_sequences.fasta ../data/ref_seqog.fasta
-```
+Here $1, $2 and $3 are placeholders for the input given as mentioned in above section.
+
 The original data is lengthy and would take an hour to run.
 All the results will appear in the "results" subdirectory within the same directory as the code. The results appear separately for all the families.
 "ORFs_mastertable.tsv" is useful to get a summarised version.
