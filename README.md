@@ -2,9 +2,10 @@
 The following code allows user to give segmented negative strand RNA virus sequences and obtain possible UFOs and N-ext of cannonical proteins.
 
 ## Input
-The scripts should be downloaded and saved in a sub-directory called "code" within the directory that the results are expected in. The input data is also stored in a separate sub-directory called "data".
-Eg:
-!(/directories-img.png)
+The scripts should be downloaded and saved in a sub-directory called "code" within the directory that the results are expected in. The input data is also stored in a separate sub-directory called "data".Eg:
+
+![](/directories-img.png)
+
 Three types of input data are expected from the user.
 1. CSV containing metadata for all the sequences, including RefSeq sequences. Ideally downloaded from the NCBI Virus database. It should be in the format of:
 2. Fasta file of the all the sequences from above said metadata.
