@@ -1,7 +1,7 @@
 #! /bin/bash
-metadata="../data/polyploviricotina_seq.csv"
-fastafile="../data/polyplo_sequences.fasta"
-ogreffasta="../data/ref_seqog.fasta"
+metadata=$1 #"../data/polyploviricotina_seq.csv"
+fastafile=$2 #"../data/polyplo_sequences.fasta"
+ogreffasta=$3 #"../data/ref_seqog.fasta"
 reffasta="../data/ref_seq.fasta"
 #create REF
 mkdir -p ../results

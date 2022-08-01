@@ -24,8 +24,8 @@ with open (tsvin,"r") as tsv:
         AAseq=splits[10]
         AAlen=int(splits[11].replace("\n",""))
         seq_dict={ref_seq:""}
-        with open(f"{family}/orfs/ORF_{species}_{segment}.tsv") as orffile:
-            in_file=f"prot/{species}_{segment}_{frame}.fasta"
+        with open(f"../results/{family}/orfs/ORF_{species}_{segment}.tsv") as orffile:
+            in_file=f"../results/prot/{species}_{segment}_{frame}.fasta"
             counter=0
             #create a fasta file which can be input file for clustal omega
             for line in orffile:
@@ -40,6 +40,6 @@ with open (tsvin,"r") as tsv:
                     seq_dict[seq_id]= record
             seq_records= list(seq_dict.values())
             SeqIO.write(seq_records, in_file, "fasta")
-            out_file=f"prot/ali_{species}_{segment}_{frame}.fasta"
+            out_file=f"../results/prot/ali_{species}_{segment}_{frame}.fasta"
             clus_cline = ClustalOmegaCommandline(infile=in_file, outfile=out_file,verbose=True, auto=True, force=True)
             clus_cline()
