@@ -68,7 +68,7 @@ def getorf(sequence, seq_id, ali_start, ali_stop, file_out, strand, ref_check, c
     elif set_frame==0:
         corrected_frame=[2,3,1]
     stop_codons = ["TAG", "TAA", "TGA"]
-    newsequence = sequence.upper().replace("-","")
+    newsequence = str(sequence).upper().replace("-","")
     for frame in range(3):
         seq_pos= frame
         next_codon=""

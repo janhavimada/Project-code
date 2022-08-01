@@ -35,7 +35,7 @@ with open(infile,"r") as orftsv:
         if alnstop in stop_pos[strand][type][utr]:
             stop_pos[strand][type][utr][alnstop][1]+=1
         if seqid==stop_pos[strand][type][utr][alnstop][2]:
-            AAseq= (Seq(Nseq).translate()).replace("*","")
+            AAseq= str(Seq(Nseq).translate()).replace("*","")
             stop_pos[strand][type][utr][alnstop].append([Nseq, AAseq, len(AAseq),seqpos])
 with open(count_file,"r") as readfile:
     for line in readfile:
