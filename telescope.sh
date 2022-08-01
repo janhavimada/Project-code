@@ -3,8 +3,9 @@ metadata=$1 #"../data/polyploviricotina_seq.csv"
 fastafile=$2 #"../data/polyplo_sequences.fasta"
 ogreffasta=$3 #"../data/ref_seqog.fasta"
 reffasta="../data/ref_seq.fasta"
-#create REF
 mkdir -p ../results
+mkdir -p ../results/prot
+#Create reference database
 echo "Creating reference database..."
 python3 ref.py ${ogreffasta} ${reffasta} #Code for creating reference fasta file
 makeblastdb -in ${reffasta} -dbtype nucl -out REF
@@ -31,16 +32,23 @@ do
   for file in $(echo $(cat ../results/${family}/${family}.txt))
   do
     echo "processing ${file}"
-    blastn -db REF -max_target_seqs 1 -max_hsps 1 -query ../results/${family}/fastafiles/${file}.fasta -out ../results/${family}/blast_results/blast_${file}.txt -outfmt 6 2>/dev/null  #BLAST
+    #Perform BLAST to cleanse the data. i.e. segment should match reference.
+    blastn -db REF -max_target_seqs 1 -max_hsps 1 -query ../results/${family}/fastafiles/${file}.fasta -out ../results/${family}/blast_results/blast_${file}.txt -outfmt 6 2>/dev/null
+    #Filter the blast results
     python3 filter_hits.py ${file} ${family}
+    #Remove empty fastafiles and skip the ssegment if empty
     if ! [ -s ../results/${family}/fastafiles/${file}.fasta ]; then rm -f ../results/${family}/fastafiles/${file}.fasta; continue; fi
-    # echo "filtered blast for ${file}"
+    #Perform MAFFT to align the remaining sequences in the fasta file
     mafft --quiet ../results/${family}/fastafiles/${file}.fasta> ../results/${family}/alignments/ali_${file}.fasta
-    # echo "aligned ${file}"
+    #Use script to detect the position of stop codons
     python3 getstop.py ${file} ${family} ${ogreffasta}
-    # echo "got orf for ${file}"
+    #Remove empty error files
     if ! [ -s ../results/${family}/error/error_${file}.txt ]; then rm -f ../results/${family}/error/error_${file}.txt; fi
+    #Remove empty ORF result files and skip the segment if empty
     if ! [ -s ../results/${family}/orfs/ORF_${file}.tsv ]; then rm -f ../results/${family}/orfs/ORF_${file}.tsv; continue; fi
+    #Add a summary to the Master table
     python3 filter_orf.py ${file} ${family}
   done
+  #Convert the structure of the filtered segments table using pandas
+  python3 count_filt_seg.py ${family}
  done
