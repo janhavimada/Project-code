@@ -115,10 +115,11 @@ for ref_record in SeqIO.parse(references, "fasta"):
                 break
         except IndexError:
             pass
-
-if cds =="":
+if cds=="":
     cds = findcds(list_ids[0])
     ref_id= list_ids[0]
+else:
+    ref_id=ref_check
         #Find cds save the start, stop in a variable.
         #If -, reverse comp
         #Find align pos. thus frame.
@@ -154,7 +155,6 @@ for seq_record in SeqIO.parse(infile, "fasta"):
             rev_cds_stop=cds["-"][0].split(":")[0]
             rev_ali_stop=findpos(ref_seq,int(rev_cds_stop.replace(">","")),"seq")
         break
-
 if (ali_start+rev_ali_start)==0:
     with open (errorfile, "a") as file_out:
         file_out.write(f"The reference, {ref_id} has incomplete start sequence/ no UTRS")

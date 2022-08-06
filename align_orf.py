@@ -30,7 +30,10 @@ with open (tsvin,"r") as tsv:
         Nseq=splits[16]
         AAseq=splits[17]
         AAlen=int(splits[18].replace("\n",""))
-        seq_dict={ref_seq:""}
+        if ref_seq !="NA":
+            seq_dict={ref_seq:""}
+        else:
+            seq_dict={}
         with open(f"../results/{family}/orfs/ORF_{species}_{segment}.tsv") as orffile:
             in_file=f"../results/prot/{species}_{segment}_{frame}.fasta"
             counter=0

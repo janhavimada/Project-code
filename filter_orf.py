@@ -66,4 +66,4 @@ with open(outfile,"a") as outwrite:
                         outwrite.write(f"{family}\t{species}\t{segment}\t{strand}\t{frame}\t{type}\t{utr}\t{alnstop}\t{count}\t{filt_count}\t{count/filt_count}\t{ref_seq}\t{cds_start}\t{cds_stop}\t{seq_len}\t{seqpos}\t{Nseq}\t{AAseq}\t{AAlen}\n")
                     except IndexError:
                         ref_seq="NA"
-                        outwrite.write(f"{family}\t{species}\t{segment}\t{strand}\t{frame}\t{type}\t{utr}\t{alnstop}\t{count}\t{filt_count}\t{count/filt_count}\t{ref_seq}\t{cds_start}\t{cds_stop}\t{seq_len}\t{alnstop}\n")
+                        outwrite.write(f"{family}\t{species}\t{segment}\t{strand}\t{frame}\t{type}\t{utr}\t{alnstop}\t{count}\t{filt_count}\t{count/filt_count}\t{ref_seq}\t{cds_start}\t{cds_stop}\t{seq_len}\t{alnstop}\t \t \t0\n")
