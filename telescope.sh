@@ -13,7 +13,7 @@ echo "Created ref db"
 #Create list of family:
 tail -n +2 ${metadata} | awk -F',' '{print $4}' | sort -u > ../data/familynames.txt
 #Creates file for final output with headers
-echo  $'Family\tSpecies\tSegment\tStrand\tFrame\tType\tUTR\tAlnStop\tCount\tTotal\tProportion\tRefSeq\tCDS Start\tCDS Stop\tSeq Length\tStop Pos\tN seq\tAA seq\tAA len' > ../results/ORFs_mastertable.tsv
+echo  $'Family\tSpecies\tSegment\tStrand\tFrame\tType\tUTR\tAlnStop\tCount\tTotal\tProportion\tReference/First\tIsRef?\tCDS Start\tCDS Stop\tSeq Length\tStop Pos\tN seq\tAA seq\tAA len\tAcc IDs' > ../results/ORFs_mastertable.tsv
 for family in $(echo $(cat ../data/familynames.txt))
 do
   echo "Processing ${family} ..."
@@ -47,7 +47,7 @@ do
     #Remove empty ORF result files and skip the segment if empty
     if ! [ -s ../results/${family}/orfs/ORF_${file}.tsv ]; then rm -f ../results/${family}/orfs/ORF_${file}.tsv; continue; fi
     #Add a summary to the Master table
-    python3 filter_orf.py ${file} ${family}
+    python3 filter_orf.py ${file} ${family} ${ogreffasta}
   done
   #Convert the structure of the filtered segments table using pandas
   python3 count_filt_seg.py ${family}
