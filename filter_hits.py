@@ -21,7 +21,7 @@ with open (outfile,"w") as outwrite:
             match=line[1] #The segment that it hit
             start=int(line[8]) #Get the start position in the orientation the hit matches
             stop=int(line[9]) #Get the stop position in the orientation the hit matches
-            acc_id=line[0] #Get the accesion id of the sequence
+            acc_id=line[0] #Get the accession id of the sequence
             #If start> stop that means that the hit aligns in reverse orietation of the sequence, hence the sequence has to be reverse complemented
             if start>stop:
                 rev.append(acc_id)
@@ -46,5 +46,6 @@ with open (outfile,"w") as outwrite:
             if seq_record.id not in wrong:
                 outwrite.write(seq_record.id+"\t no hit \n")
     SeqIO.write(record,filename,"fasta")
+#Writes the count of the filtered sequences to be used for analysis into the text file
 with open(f"../results/{family}/{family}_filtered.txt","a") as segfile:
     segfile.write(f"{sp}\t{seg}\t{len(right)}\n")

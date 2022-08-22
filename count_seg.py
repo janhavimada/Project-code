@@ -76,7 +76,8 @@ with open(out_file,"w") as outwrite:
                 #Add all records to a fasta file with the name containing species and segment name seperated by _
                 SeqIO.write(records,f"../results/{family}/fastafiles/{spe}_{seg}.fasta","fasta")
                 outwrite.write(f"{spe}_{seg}\n") #Save the filename to a list for iterrating
-output_filename=f"../results/{family}/{family}_segments.txt"
+output_filename=f"../results/{family}/{family}_segments.txt" #TSV having counts for the segments of each species in the family before the analysis
+#Writes out  the count of each segment to the output file
 with open(output_filename, "w") as file_output:
      #Headers for the file
      out_str = "species"
@@ -89,10 +90,6 @@ with open(output_filename, "w") as file_output:
          for seg in data[sp]:
              out_str += "\t" + str(data[sp][seg])
          file_output.write(out_str + "\n")
-with open("../results/TotalSegments.txt","w") as out:
-    fam_total=0
-    for sp in data:
-        fam_total+=data[sp]["total"]
-    out.write(f"{family}\t{fam_total}")
+#Creates the text file in which each species segment count would be entered after filtration step
 with open(f"../results/{family}/{family}_filtered.txt","w") as filt:
     filt.write("Species\tSegment\tCount\n")

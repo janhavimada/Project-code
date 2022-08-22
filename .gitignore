@@ -1,9 +1,9 @@
 
-REF.ndb
-REF.nhr
-REF.nin
-REF.njs
-REF.not
-REF.nsq
-REF.ntf
-REF.nto
+*.ndb
+*.nhr
+*.nin
+*.njs
+*.not
+*.nsq
+*.ntf
+*.nto
